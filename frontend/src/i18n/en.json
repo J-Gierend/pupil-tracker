@@ -35,9 +35,11 @@
     "category": "Category",
     "grade": "Grade",
     "notes": "Notes",
+    "noNotes": "No notes",
     "save": "Save",
     "cancel": "Cancel",
     "delete": "Delete",
+    "edit": "Edit Entry",
     "confirmDelete": "Really delete this entry?",
     "saved": "Entry saved",
     "deleted": "Entry deleted"

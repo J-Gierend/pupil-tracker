@@ -36,6 +36,7 @@
           :pupil="pupil"
           :entry-count="getEntryCount(pupil.id)"
           :average-grade="getAverageGrade(pupil.id)"
+          :recent-entries="getRecentEntries(pupil.id)"
         />
       </div>
     </template>
@@ -88,10 +89,17 @@ function getEntryCount(pupilId) {
 }
 
 function getAverageGrade(pupilId) {
-  const pupilEntries = entries.value.filter(e => e.pupil_id === pupilId)
+  const pupilEntries = entries.value.filter(e => e.pupil_id === pupilId && e.grade)
   if (pupilEntries.length === 0) return null
   const sum = pupilEntries.reduce((acc, e) => acc + e.grade, 0)
-  return Math.round(sum / pupilEntries.length)
+  return sum / pupilEntries.length
+}
+
+function getRecentEntries(pupilId) {
+  return entries.value
+    .filter(e => e.pupil_id === pupilId)
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 2)
 }
 
 function closeModal() {

@@ -39,6 +39,45 @@ function setStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data))
 }
 
+// Migrate old category format to new format
+function migrateCategories() {
+  const categories = getStorage(STORAGE_KEYS.CATEGORIES)
+  let needsUpdate = false
+
+  const migrated = categories.map(cat => {
+    // If category has old combined 'name' format like "Work Behavior / Arbeitsverhalten"
+    if (cat.name && cat.name.includes(' / ')) {
+      needsUpdate = true
+      const [en, de] = cat.name.split(' / ')
+      return { ...cat, name_en: en, name_de: de, name: undefined }
+    }
+    // If category only has 'name' without slash, try to find matching default
+    if (cat.name && !cat.name_de && !cat.name_en) {
+      needsUpdate = true
+      const defaultCat = DEFAULT_CATEGORIES.find(d =>
+        d.name_de === cat.name || d.name_en === cat.name
+      )
+      if (defaultCat) {
+        return { ...cat, name_de: defaultCat.name_de, name_en: defaultCat.name_en, name: undefined }
+      }
+      // For custom categories, use the name for both
+      return { ...cat, name_de: cat.name, name_en: cat.name, name: undefined }
+    }
+    return cat
+  })
+
+  if (needsUpdate) {
+    setStorage(STORAGE_KEYS.CATEGORIES, migrated)
+  }
+
+  // Also ensure all default categories exist with correct format
+  const existingIds = migrated.map(c => c.id)
+  const missingDefaults = DEFAULT_CATEGORIES.filter(d => !existingIds.includes(d.id))
+  if (missingDefaults.length > 0) {
+    setStorage(STORAGE_KEYS.CATEGORIES, [...migrated, ...missingDefaults])
+  }
+}
+
 // Initialize storage with default data on first load
 export function initializeStorage() {
   const initialized = localStorage.getItem(STORAGE_KEYS.INITIALIZED)
@@ -50,6 +89,9 @@ export function initializeStorage() {
     setStorage(STORAGE_KEYS.ENTRIES, [])
     localStorage.setItem(STORAGE_KEYS.INITIALIZED, 'true')
   }
+
+  // Always run migration to fix old category formats
+  migrateCategories()
 }
 
 // School Years

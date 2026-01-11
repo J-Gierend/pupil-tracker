@@ -23,10 +23,7 @@ function formatDate(dateStr, locale = 'de') {
  * Get the category name based on locale
  */
 function getCategoryName(category, locale = 'de') {
-  if (category.name_de && category.name_en) {
-    return locale === 'de' ? category.name_de : category.name_en
-  }
-  return category.name || category.name_de || category.name_en || ''
+  return locale === 'de' ? (category.name_de || '') : (category.name_en || '')
 }
 
 /**

@@ -48,10 +48,7 @@ import ConfirmDialog from './ConfirmDialog.vue'
 const { t, locale } = useI18n()
 
 function getCategoryName(cat) {
-  if (cat.name_de && cat.name_en) {
-    return locale.value === 'de' ? cat.name_de : cat.name_en
-  }
-  return cat.name || cat.name_de || cat.name_en || ''
+  return locale.value === 'de' ? (cat.name_de || '') : (cat.name_en || '')
 }
 
 const categories = ref([])
@@ -66,7 +63,8 @@ async function loadCategories() {
 
 async function addCategory() {
   if (!newName.value.trim()) return
-  await createCategory({ name: newName.value, is_custom: true })
+  const name = newName.value.trim()
+  await createCategory({ name_de: name, name_en: name, is_custom: true })
   newName.value = ''
   await loadCategories()
 }

@@ -63,10 +63,7 @@ const emit = defineEmits(['save', 'cancel'])
 const { t, locale } = useI18n()
 
 function getCategoryName(cat) {
-  if (cat.name_de && cat.name_en) {
-    return locale.value === 'de' ? cat.name_de : cat.name_en
-  }
-  return cat.name || cat.name_de || cat.name_en || ''
+  return locale.value === 'de' ? (cat.name_de || '') : (cat.name_en || '')
 }
 
 const loading = ref(false)

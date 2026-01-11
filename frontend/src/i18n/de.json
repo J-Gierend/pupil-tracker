@@ -35,9 +35,11 @@
     "category": "Kategorie",
     "grade": "Note",
     "notes": "Notizen",
+    "noNotes": "Keine Notizen",
     "save": "Speichern",
     "cancel": "Abbrechen",
     "delete": "Loeschen",
+    "edit": "Eintrag bearbeiten",
     "confirmDelete": "Eintrag wirklich loeschen?",
     "saved": "Eintrag gespeichert",
     "deleted": "Eintrag geloescht"
