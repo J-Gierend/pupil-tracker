@@ -143,7 +143,30 @@ onMounted(loadData)
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .btn-icon:hover { color: #ef4444; }
+
+/* Mobile */
+@media (max-width: 480px) {
+  .add-form {
+    flex-direction: column;
+  }
+
+  .add-form input,
+  .add-form select {
+    width: 100%;
+    min-width: auto;
+  }
+
+  .add-form .btn {
+    width: 100%;
+  }
+
+  .settings-section {
+    padding: 1rem;
+  }
+}
 </style>

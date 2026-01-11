@@ -26,11 +26,18 @@ const { t } = useI18n()
 
 .settings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
   gap: 1.5rem;
 }
 
 @media (max-width: 768px) {
-  .settings-grid { grid-template-columns: 1fr; }
+  .settings-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title { font-size: 1.5rem; margin-bottom: 1rem; }
 }
 </style>

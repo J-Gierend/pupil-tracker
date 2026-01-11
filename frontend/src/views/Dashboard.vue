@@ -165,6 +165,30 @@ onMounted(loadData)
   .dashboard-grid { grid-template-columns: 1fr; }
 }
 
+@media (max-width: 480px) {
+  .page-title { font-size: 1.5rem; }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+  }
+
+  .class-card {
+    padding: 0.875rem;
+  }
+}
+
 .section { min-width: 0; }
 
 .section-title {

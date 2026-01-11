@@ -161,4 +161,19 @@ onMounted(loadData)
   padding: 2rem;
   color: var(--text-secondary);
 }
+
+/* Mobile */
+@media (max-width: 480px) {
+  .page-title { font-size: 1.375rem; }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .section-header .btn {
+    width: 100%;
+  }
+}
 </style>

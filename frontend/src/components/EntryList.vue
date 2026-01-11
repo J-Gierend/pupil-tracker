@@ -160,11 +160,42 @@ function doDelete() {
   padding: 1.5rem;
   border-radius: 0.75rem;
   max-width: 300px;
+  margin: 1rem;
 }
 
 .confirm-actions {
   display: flex;
   gap: 1rem;
   margin-top: 1rem;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .entry-card {
+    padding: 0.875rem;
+  }
+
+  .entry-header {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .btn-icon {
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0.5rem;
+  }
+
+  .confirm-content {
+    max-width: calc(100% - 2rem);
+  }
+
+  .confirm-actions {
+    flex-direction: column;
+  }
+
+  .confirm-actions .btn {
+    width: 100%;
+  }
 }
 </style>

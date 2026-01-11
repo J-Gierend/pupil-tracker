@@ -338,14 +338,90 @@ textarea:hover {
   outline-offset: 2px;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive - Mobile First Approach */
+
+/* Touch-friendly defaults */
+@media (hover: none) and (pointer: coarse) {
+  /* Larger touch targets on touch devices */
+  .btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .btn-icon {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Prevent iOS zoom on input focus */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* Small phones (up to 480px) */
+@media (max-width: 480px) {
   html {
     font-size: 14px;
   }
 
-  h1 { font-size: 1.75rem; }
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+  h3 { font-size: 1.125rem; }
+
+  .btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+    width: 100%;
+  }
+
+  .btn-sm {
+    padding: 0.5rem 0.875rem;
+    width: auto;
+  }
+
+  /* Stack buttons vertically on very small screens */
+  .form-actions,
+  .export-buttons {
+    flex-direction: column;
+  }
+
+  .form-actions .btn,
+  .export-buttons .btn {
+    width: 100%;
+  }
+}
+
+/* Tablets and small phones (up to 768px) */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+
+  h1 { font-size: 1.625rem; }
   h2 { font-size: 1.375rem; }
+
+  /* Ensure modals don't overflow */
+  .modal-content {
+    max-width: 95vw;
+    margin: 1rem;
+  }
+
+  /* Better table handling */
+  .table-container {
+    margin: 0 -1rem;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
+
+/* Tablets (up to 1024px) */
+@media (max-width: 1024px) {
+  /* Slightly smaller stat cards */
+  .stat-value {
+    font-size: 2rem;
+  }
 }
 
 /* Animation classes */

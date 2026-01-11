@@ -151,7 +151,7 @@ onMounted(loadData)
 
 .pupils-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
   gap: 1rem;
 }
 
@@ -169,6 +169,7 @@ onMounted(loadData)
   align-items: center;
   justify-content: center;
   z-index: 100;
+  padding: 1rem;
 }
 
 .modal {
@@ -177,6 +178,8 @@ onMounted(loadData)
   border-radius: 0.75rem;
   width: 100%;
   max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
 }
 
 .modal h3 { margin: 0 0 1rem; }
@@ -201,4 +204,25 @@ onMounted(loadData)
 }
 
 .form-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
+
+/* Mobile */
+@media (max-width: 480px) {
+  .page-title { font-size: 1.5rem; }
+
+  .modal {
+    padding: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+
+  .actions .btn {
+    width: 100%;
+  }
+}
 </style>

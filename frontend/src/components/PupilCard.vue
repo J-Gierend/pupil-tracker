@@ -183,4 +183,38 @@ function truncateText(text, maxLength) {
   font-size: 0.875rem;
   font-style: italic;
 }
+
+/* Touch devices - remove hover effects that don't work well */
+@media (hover: none) and (pointer: coarse) {
+  .pupil-card:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pupil-card:active {
+    background: var(--surface-hover);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+  .pupil-card {
+    min-height: auto;
+    padding: 0.875rem;
+  }
+
+  .pupil-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 0.8rem;
+  }
+
+  .pupil-name {
+    font-size: 0.9375rem;
+  }
+
+  .entry-preview {
+    padding: 0.375rem;
+  }
+}
 </style>

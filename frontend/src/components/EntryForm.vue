@@ -172,4 +172,29 @@ onMounted(loadCategories)
   gap: 1rem;
   margin-top: 1.5rem;
 }
+
+/* Mobile */
+@media (max-width: 480px) {
+  .entry-form {
+    padding: 1rem;
+  }
+
+  .grade-selector {
+    flex-wrap: wrap;
+  }
+
+  .grade-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.125rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+}
 </style>

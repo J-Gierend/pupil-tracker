@@ -153,4 +153,19 @@ async function handleImport(event) {
   background: rgba(239, 68, 68, 0.2);
   color: #ef4444;
 }
+
+/* Mobile */
+@media (max-width: 480px) {
+  .export-buttons {
+    flex-direction: column;
+  }
+
+  .export-buttons .btn {
+    width: 100%;
+  }
+
+  .settings-section {
+    padding: 1rem;
+  }
+}
 </style>

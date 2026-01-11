@@ -635,4 +635,83 @@ onMounted(loadData)
 .form-actions { display: flex; gap: 1rem; margin-top: 1.5rem; }
 
 .btn-sm { padding: 0.5rem 1rem; font-size: 0.875rem; }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .form-row { grid-template-columns: 1fr; }
+
+  .pupil-header { padding: 1rem; }
+  .pupil-avatar { width: 3rem; height: 3rem; font-size: 1.25rem; }
+  .pupil-details h2 { font-size: 1.25rem; }
+
+  .entries-section,
+  .ai-section,
+  .generated-report,
+  .export-section {
+    padding: 1rem;
+  }
+
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .report-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .export-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .export-buttons .btn {
+    width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .page-title { font-size: 1.5rem; }
+
+  .selection-panel { padding: 1rem; }
+
+  .info-message { padding: 2rem 1rem; }
+
+  .entry-meta {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .grade-buttons {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .grade-btn {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .modal {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+    padding: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+
+  .demo-notice {
+    font-size: 0.8rem;
+  }
+}
 </style>
