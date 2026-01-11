@@ -1,0 +1,222 @@
+# Pupil Development Tracker - Specification
+
+## Project Overview
+
+| Aspect | Decision |
+|--------|----------|
+| **Users** | Single teacher |
+| **App Type** | Local application with web frontend (server + browser) |
+| **Backend** | Python + Flask/FastAPI |
+| **Frontend** | Vue.js |
+| **Database** | SQLite (local) |
+| **Languages** | German and English (bilingual UI) |
+
+---
+
+## Core Features
+
+### 1. Data Collection
+
+#### Data Types per Pupil
+- **Text Notes**: Free-text observations and comments
+- **Grades**: German system (1-6) per subject
+- **Categories**: Predefined + custom tags
+
+#### Predefined Development Categories
+1. Work Behavior (Arbeitsverhalten)
+2. Social Behavior (Sozialverhalten)
+3. Learning Development (Lernentwicklung)
+4. Special Incidents (Besondere Vorkommnisse)
+5. Motor Skills (Motorik)
+6. Creativity (Kreativität)
+7. Language Development (Sprachentwicklung)
+8. Independence (Selbstständigkeit)
+
+#### Structure
+- **School Years**: Archivable, selectable
+- **Classes**: Pupils are assigned to classes
+- **Custom Categories**: Teacher can add own categories
+
+---
+
+### 2. Report Generation
+
+| Aspect | Implementation |
+|--------|----------------|
+| **Method** | Structured summary (no AI) |
+| **Sorting** | Chronological |
+| **Formats** | PDF and Word (.docx) |
+
+Reports compile all entries for a pupil within a selected time period, grouped chronologically with category labels.
+
+---
+
+### 3. Data Management
+
+- **Backup/Export**: JSON and CSV export of all data
+- **Database**: SQLite file stored locally
+- **Privacy**: All data stays on local machine
+
+---
+
+## Technical Architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│                   Browser                        │
+│                  (Vue.js)                        │
+└─────────────────────┬───────────────────────────┘
+                      │ HTTP/REST API
+┌─────────────────────▼───────────────────────────┐
+│              Python Backend                      │
+│            (Flask or FastAPI)                    │
+├─────────────────────────────────────────────────┤
+│  - REST API endpoints                           │
+│  - PDF generation (ReportLab/WeasyPrint)        │
+│  - Word generation (python-docx)                │
+│  - SQLite database access                       │
+└─────────────────────┬───────────────────────────┘
+                      │
+┌─────────────────────▼───────────────────────────┐
+│              SQLite Database                     │
+│         (local file: data.db)                   │
+└─────────────────────────────────────────────────┘
+```
+
+---
+
+## Data Model
+
+### Tables
+
+#### school_years
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary key |
+| name | TEXT | e.g., "2024/2025" |
+| start_date | DATE | Year start |
+| end_date | DATE | Year end |
+| is_active | BOOLEAN | Currently active year |
+
+#### classes
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary key |
+| name | TEXT | e.g., "3a", "4b" |
+| school_year_id | INTEGER | Foreign key |
+
+#### pupils
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary key |
+| first_name | TEXT | First name |
+| last_name | TEXT | Last name |
+| class_id | INTEGER | Foreign key |
+
+#### categories
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary key |
+| name_de | TEXT | German name |
+| name_en | TEXT | English name |
+| is_predefined | BOOLEAN | System or custom |
+
+#### entries
+| Column | Type | Description |
+|--------|------|-------------|
+| id | INTEGER | Primary key |
+| pupil_id | INTEGER | Foreign key |
+| category_id | INTEGER | Foreign key |
+| date | DATE | Entry date |
+| text | TEXT | Observation text |
+| grade | INTEGER | Optional grade (1-6) |
+| subject | TEXT | Optional subject name |
+
+---
+
+## UI Pages
+
+1. **Dashboard**: Overview of classes and recent entries
+2. **Class View**: List of pupils in a class
+3. **Pupil View**: All entries for one pupil, add new entry
+4. **Report Generator**: Select pupil/class, date range, generate report
+5. **Settings**: Manage categories, school years, language selection, export data
+
+---
+
+## Bilingual Support
+
+- UI toggle between German and English
+- All labels, buttons, and messages in both languages
+- Category names stored in both languages
+- Reports can be generated in selected language
+
+---
+
+## Grade System
+
+German school grades (1-6):
+| Grade | Meaning (DE) | Meaning (EN) |
+|-------|--------------|--------------|
+| 1 | Sehr gut | Very good |
+| 2 | Gut | Good |
+| 3 | Befriedigend | Satisfactory |
+| 4 | Ausreichend | Adequate |
+| 5 | Mangelhaft | Poor |
+| 6 | Ungenügend | Insufficient |
+
+---
+
+## File Structure (Planned)
+
+```
+pupil-tracker/
+├── backend/
+│   ├── app.py              # Flask/FastAPI main
+│   ├── models.py           # SQLAlchemy models
+│   ├── routes/
+│   │   ├── pupils.py
+│   │   ├── entries.py
+│   │   ├── reports.py
+│   │   └── settings.py
+│   ├── services/
+│   │   ├── pdf_generator.py
+│   │   └── word_generator.py
+│   └── data.db             # SQLite database
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── views/
+│   │   ├── i18n/           # Translations
+│   │   └── App.vue
+│   └── package.json
+├── spec.md
+└── README.md
+```
+
+---
+
+## MVP Scope
+
+### Phase 1 - Core
+- [ ] Database setup with all tables
+- [ ] CRUD for school years, classes, pupils
+- [ ] CRUD for entries (notes, grades, categories)
+- [ ] Basic Vue.js frontend with all pages
+- [ ] German/English language toggle
+
+### Phase 2 - Reports
+- [ ] PDF report generation
+- [ ] Word report generation
+- [ ] Date range selection
+- [ ] Per-pupil and per-class reports
+
+### Phase 3 - Polish
+- [ ] Data export (JSON/CSV)
+- [ ] Data import
+- [ ] UI improvements
+- [ ] Error handling
+
+---
+
+*Last updated: 2026-01-11*

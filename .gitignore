@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+
+# Build output (we'll commit dist separately for GitHub Pages)
+# frontend/dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+nul
+
+# Python
+*.egg-info/
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Database
+*.db
+
+# Logs
+*.log

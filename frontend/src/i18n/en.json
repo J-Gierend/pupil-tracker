@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "reports": "Reports",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "classes": "Classes",
+    "recentEntries": "Recent Entries",
+    "noClasses": "No classes available",
+    "noEntries": "No entries available",
+    "totalPupils": "Total Pupils",
+    "totalEntries": "Total Entries",
+    "thisWeek": "This Week"
+  },
+  "class": {
+    "title": "Class",
+    "pupils": "Pupils",
+    "noPupils": "No pupils in this class",
+    "addPupil": "Add Pupil",
+    "back": "Back"
+  },
+  "pupil": {
+    "title": "Pupil",
+    "entries": "Entries",
+    "noEntries": "No entries for this pupil",
+    "addEntry": "Add Entry",
+    "back": "Back to Class",
+    "firstName": "First Name",
+    "lastName": "Last Name"
+  },
+  "entry": {
+    "date": "Date",
+    "category": "Category",
+    "grade": "Grade",
+    "notes": "Notes",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "confirmDelete": "Really delete this entry?",
+    "saved": "Entry saved",
+    "deleted": "Entry deleted"
+  },
+  "grades": {
+    "1": "Very Good",
+    "2": "Good",
+    "3": "Satisfactory",
+    "4": "Adequate",
+    "5": "Poor",
+    "6": "Insufficient"
+  },
+  "categories": {
+    "oral": "Oral",
+    "written": "Written",
+    "homework": "Homework",
+    "behavior": "Behavior",
+    "participation": "Participation",
+    "project": "Project",
+    "custom": "Custom"
+  },
+  "reports": {
+    "title": "Generate Reports",
+    "selectPupil": "Select Pupil",
+    "selectClass": "Select Class",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "generatePdf": "Generate PDF",
+    "generateWord": "Generate Word",
+    "noSelection": "Please select a pupil",
+    "generating": "Generating report..."
+  },
+  "settings": {
+    "title": "Settings",
+    "language": "Language",
+    "schoolYears": "School Years",
+    "classes": "Classes",
+    "categories": "Categories",
+    "export": "Export Data",
+    "import": "Import Data",
+    "exportJson": "Export as JSON",
+    "exportCsv": "Export as CSV",
+    "importJson": "Import JSON",
+    "addYear": "Add School Year",
+    "addClass": "Add Class",
+    "addCategory": "Add Category",
+    "name": "Name",
+    "year": "Year",
+    "save": "Save",
+    "delete": "Delete",
+    "confirmDelete": "Really delete?",
+    "pupils": "Manage Pupils",
+    "addPupil": "Add Pupil"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "close": "Close",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  }
+}

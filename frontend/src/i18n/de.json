@@ -1,0 +1,109 @@
+{
+  "nav": {
+    "dashboard": "Uebersicht",
+    "reports": "Berichte",
+    "settings": "Einstellungen"
+  },
+  "dashboard": {
+    "title": "Uebersicht",
+    "classes": "Klassen",
+    "recentEntries": "Letzte Eintraege",
+    "noClasses": "Keine Klassen vorhanden",
+    "noEntries": "Keine Eintraege vorhanden",
+    "totalPupils": "Schueler gesamt",
+    "totalEntries": "Eintraege gesamt",
+    "thisWeek": "Diese Woche"
+  },
+  "class": {
+    "title": "Klasse",
+    "pupils": "Schueler",
+    "noPupils": "Keine Schueler in dieser Klasse",
+    "addPupil": "Schueler hinzufuegen",
+    "back": "Zurueck"
+  },
+  "pupil": {
+    "title": "Schueler",
+    "entries": "Eintraege",
+    "noEntries": "Keine Eintraege fuer diesen Schueler",
+    "addEntry": "Eintrag hinzufuegen",
+    "back": "Zurueck zur Klasse",
+    "firstName": "Vorname",
+    "lastName": "Nachname"
+  },
+  "entry": {
+    "date": "Datum",
+    "category": "Kategorie",
+    "grade": "Note",
+    "notes": "Notizen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Loeschen",
+    "confirmDelete": "Eintrag wirklich loeschen?",
+    "saved": "Eintrag gespeichert",
+    "deleted": "Eintrag geloescht"
+  },
+  "grades": {
+    "1": "Sehr gut",
+    "2": "Gut",
+    "3": "Befriedigend",
+    "4": "Ausreichend",
+    "5": "Mangelhaft",
+    "6": "Ungenuegend"
+  },
+  "categories": {
+    "oral": "Muendlich",
+    "written": "Schriftlich",
+    "homework": "Hausaufgaben",
+    "behavior": "Verhalten",
+    "participation": "Mitarbeit",
+    "project": "Projekt",
+    "custom": "Benutzerdefiniert"
+  },
+  "reports": {
+    "title": "Berichte erstellen",
+    "selectPupil": "Schueler auswaehlen",
+    "selectClass": "Klasse auswaehlen",
+    "startDate": "Startdatum",
+    "endDate": "Enddatum",
+    "generatePdf": "PDF erstellen",
+    "generateWord": "Word erstellen",
+    "noSelection": "Bitte Schueler auswaehlen",
+    "generating": "Bericht wird erstellt..."
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "schoolYears": "Schuljahre",
+    "classes": "Klassen",
+    "categories": "Kategorien",
+    "export": "Daten exportieren",
+    "import": "Daten importieren",
+    "exportJson": "Als JSON exportieren",
+    "exportCsv": "Als CSV exportieren",
+    "importJson": "JSON importieren",
+    "addYear": "Schuljahr hinzufuegen",
+    "addClass": "Klasse hinzufuegen",
+    "addCategory": "Kategorie hinzufuegen",
+    "name": "Name",
+    "year": "Jahr",
+    "save": "Speichern",
+    "delete": "Loeschen",
+    "confirmDelete": "Wirklich loeschen?",
+    "pupils": "Schueler verwalten",
+    "addPupil": "Schueler hinzufuegen"
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Ein Fehler ist aufgetreten",
+    "retry": "Erneut versuchen",
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Loeschen",
+    "edit": "Bearbeiten",
+    "add": "Hinzufuegen",
+    "close": "Schliessen",
+    "confirm": "Bestaetigen",
+    "yes": "Ja",
+    "no": "Nein"
+  }
+}
