@@ -432,12 +432,12 @@ export function seedTestData() {
 
   // Create school years
   const schoolYears = [
-    { id: 1001, name: '2023/2024', is_active: false },
-    { id: 1002, name: '2024/2025', is_active: true }
+    { id: 1001, name: '2024/2025', is_active: false },
+    { id: 1002, name: '2025/2026', is_active: true }
   ]
   setStorage(STORAGE_KEYS.SCHOOL_YEARS, schoolYears)
 
-  // Create classes (all in 2024/2025)
+  // Create classes (all in 2025/2026)
   const classes = [
     { id: 2001, name: 'Klasse 1a', school_year_id: 1002 },
     { id: 2002, name: 'Klasse 2b', school_year_id: 1002 },
@@ -471,9 +471,9 @@ export function seedTestData() {
   let entryId = 4001
   const categoryIds = [1, 2, 3, 4, 5, 6, 7, 8] // All default category IDs
 
-  // Date range: September 2024 - January 2025
-  const startDate = new Date('2024-09-02')
-  const endDate = new Date('2025-01-15')
+  // Date range: November 2025 - November 2026
+  const startDate = new Date('2025-11-07')
+  const endDate = new Date('2026-11-01')
   const dateRange = endDate.getTime() - startDate.getTime()
 
   pupils.forEach(pupil => {

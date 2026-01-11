@@ -214,8 +214,8 @@ const allEntries = ref([])
 
 const selectedClass = ref(null)
 const selectedPupil = ref(null)
-const startDate = ref(getDefaultStartDate())
-const endDate = ref(new Date().toISOString().split('T')[0])
+const startDate = ref('2025-11-01')
+const endDate = ref('2026-11-01')
 const aiInstructions = ref('')
 const mockReport = ref('')
 const showAddEntry = ref(false)
@@ -226,12 +226,6 @@ const newEntry = reactive({
   grade: 3,
   notes: ''
 })
-
-function getDefaultStartDate() {
-  const d = new Date()
-  d.setMonth(d.getMonth() - 6)
-  return d.toISOString().split('T')[0]
-}
 
 const filteredPupils = computed(() => {
   if (!selectedClass.value) return []
