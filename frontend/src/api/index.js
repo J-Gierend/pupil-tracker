@@ -6,6 +6,7 @@
 
 import {
   initializeStorage,
+  seedTestData,
   getSchoolYears as storageGetSchoolYears,
   getSchoolYear as storageGetSchoolYear,
   createSchoolYear as storageCreateSchoolYear,
@@ -39,6 +40,9 @@ import {
 
 // Initialize storage on import
 initializeStorage()
+
+// Seed test data on first load (only populates if no data exists)
+seedTestData()
 
 // Helper to wrap sync operations in promise and return { data } format
 function wrapPromise(fn) {

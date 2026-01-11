@@ -13,7 +13,7 @@
       <label>{{ t('entry.category') }}</label>
       <select v-model="form.category_id" required>
         <option v-for="cat in categories" :key="cat.id" :value="cat.id">
-          {{ cat.name }}
+          {{ getCategoryName(cat) }}
         </option>
       </select>
     </div>
@@ -60,7 +60,14 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['save', 'cancel'])
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+function getCategoryName(cat) {
+  if (cat.name_de && cat.name_en) {
+    return locale.value === 'de' ? cat.name_de : cat.name_en
+  }
+  return cat.name || cat.name_de || cat.name_en || ''
+}
 
 const loading = ref(false)
 const categories = ref([])

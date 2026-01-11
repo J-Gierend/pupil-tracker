@@ -90,7 +90,9 @@
     "delete": "Delete",
     "confirmDelete": "Really delete?",
     "pupils": "Manage Pupils",
-    "addPupil": "Add Pupil"
+    "addPupil": "Add Pupil",
+    "builtIn": "Built-in",
+    "noCategories": "No categories"
   },
   "common": {
     "loading": "Loading...",

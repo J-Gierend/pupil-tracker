@@ -3,7 +3,6 @@
     <h1 class="page-title">{{ t('settings.title') }}</h1>
 
     <div class="settings-grid">
-      <SettingsLanguage />
       <SettingsSchoolYears />
       <SettingsClasses />
       <SettingsCategories />
@@ -14,7 +13,6 @@
 
 <script setup>
 import { useI18n } from 'vue-i18n'
-import SettingsLanguage from '../components/SettingsLanguage.vue'
 import SettingsSchoolYears from '../components/SettingsSchoolYears.vue'
 import SettingsClasses from '../components/SettingsClasses.vue'
 import SettingsCategories from '../components/SettingsCategories.vue'

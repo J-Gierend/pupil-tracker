@@ -78,7 +78,7 @@ import { getClasses, getPupils, getEntriesForPupil, getCategories } from '../api
 import { generatePDF, generateWord } from '../services/reportGenerator'
 import EntryList from '../components/EntryList.vue'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 const loading = ref(true)
 const entriesLoading = ref(false)
@@ -128,7 +128,8 @@ async function handleGeneratePdf() {
       filteredEntries.value,
       categories.value,
       startDate.value,
-      endDate.value
+      endDate.value,
+      locale.value
     )
   } catch (e) {
     errorMessage.value = 'Failed to generate PDF: ' + e.message
@@ -147,7 +148,8 @@ async function handleGenerateWord() {
       filteredEntries.value,
       categories.value,
       startDate.value,
-      endDate.value
+      endDate.value,
+      locale.value
     )
   } catch (e) {
     errorMessage.value = 'Failed to generate Word document: ' + e.message

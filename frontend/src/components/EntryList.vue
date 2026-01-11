@@ -68,7 +68,11 @@ const sortedEntries = computed(() => {
 
 function getCategoryName(id) {
   const cat = props.categories.find(c => c.id === id)
-  return cat ? cat.name : ''
+  if (!cat) return ''
+  if (cat.name_de && cat.name_en) {
+    return locale.value === 'de' ? cat.name_de : cat.name_en
+  }
+  return cat.name || cat.name_de || cat.name_en || ''
 }
 
 function formatDate(dateStr) {

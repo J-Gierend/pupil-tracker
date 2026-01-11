@@ -90,7 +90,9 @@
     "delete": "Loeschen",
     "confirmDelete": "Wirklich loeschen?",
     "pupils": "Schueler verwalten",
-    "addPupil": "Schueler hinzufuegen"
+    "addPupil": "Schueler hinzufuegen",
+    "builtIn": "Standard",
+    "noCategories": "Keine Kategorien"
   },
   "common": {
     "loading": "Laden...",

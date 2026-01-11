@@ -32,27 +32,31 @@ function setLocale(lang) {
   gap: 0.25rem;
   background: var(--bg-color);
   padding: 0.25rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
 }
 
 .lang-btn {
-  padding: 0.375rem 0.75rem;
+  padding: 0.5rem 0.875rem;
   border: none;
   background: transparent;
   color: var(--text-secondary);
-  font-weight: 500;
-  font-size: 0.875rem;
-  border-radius: 0.375rem;
+  font-weight: 600;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-md);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 0.2s ease;
+  letter-spacing: 0.025em;
 }
 
 .lang-btn:hover {
-  color: var(--text-color);
+  color: var(--primary-color);
+  background: rgba(13, 148, 136, 0.1);
 }
 
 .lang-btn.active {
-  background: var(--primary-color);
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
   color: white;
+  box-shadow: 0 2px 4px rgba(13, 148, 136, 0.25);
 }
 </style>

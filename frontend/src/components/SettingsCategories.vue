@@ -4,7 +4,7 @@
 
     <div class="items-list">
       <div v-for="cat in categories" :key="cat.id" class="item-row">
-        <span>{{ cat.name }}</span>
+        <span>{{ getCategoryName(cat) }}</span>
         <button
           v-if="cat.is_custom"
           class="btn-icon btn-danger"
@@ -12,10 +12,10 @@
         >
           [Del]
         </button>
-        <span v-else class="badge">Built-in</span>
+        <span v-else class="badge">{{ t('settings.builtIn') }}</span>
       </div>
       <div v-if="categories.length === 0" class="empty">
-        No categories
+        {{ t('settings.noCategories') }}
       </div>
     </div>
 
@@ -45,7 +45,14 @@ import { useI18n } from 'vue-i18n'
 import { getCategories, createCategory, deleteCategory } from '../api'
 import ConfirmDialog from './ConfirmDialog.vue'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
+
+function getCategoryName(cat) {
+  if (cat.name_de && cat.name_en) {
+    return locale.value === 'de' ? cat.name_de : cat.name_en
+  }
+  return cat.name || cat.name_de || cat.name_en || ''
+}
 
 const categories = ref([])
 const newName = ref('')

@@ -10,13 +10,23 @@ import { saveAs } from 'file-saver'
 /**
  * Format a date string to a readable format
  */
-function formatDate(dateStr) {
+function formatDate(dateStr, locale = 'de') {
   const date = new Date(dateStr)
-  return date.toLocaleDateString('de-DE', {
+  return date.toLocaleDateString(locale === 'de' ? 'de-DE' : 'en-US', {
     year: 'numeric',
     month: '2-digit',
     day: '2-digit'
   })
+}
+
+/**
+ * Get the category name based on locale
+ */
+function getCategoryName(category, locale = 'de') {
+  if (category.name_de && category.name_en) {
+    return locale === 'de' ? category.name_de : category.name_en
+  }
+  return category.name || category.name_de || category.name_en || ''
 }
 
 /**
@@ -41,17 +51,43 @@ function getGradeDescription(grade) {
  * @param {Array} categories - Array of category objects
  * @param {string} startDate - Start date for report period
  * @param {string} endDate - End date for report period
+ * @param {string} locale - Language locale ('de' or 'en')
  */
-export function generatePDF(pupil, entries, categories, startDate, endDate) {
+export function generatePDF(pupil, entries, categories, startDate, endDate, locale = 'de') {
   const doc = new jsPDF()
   const pageWidth = doc.internal.pageSize.getWidth()
   const margin = 20
   let yPos = 20
 
+  // Localized strings
+  const strings = locale === 'de' ? {
+    title: 'Entwicklungsbericht',
+    reportPeriod: 'Berichtszeitraum',
+    generated: 'Erstellt am',
+    summary: 'Zusammenfassung',
+    totalEntries: 'Eintraege gesamt',
+    averageGrade: 'Durchschnittsnote',
+    entriesByCategory: 'Eintraege nach Kategorie',
+    grade: 'Note',
+    page: 'Seite',
+    of: 'von'
+  } : {
+    title: 'Development Report',
+    reportPeriod: 'Report Period',
+    generated: 'Generated',
+    summary: 'Summary',
+    totalEntries: 'Total Entries',
+    averageGrade: 'Average Grade',
+    entriesByCategory: 'Entries by Category',
+    grade: 'Grade',
+    page: 'Page',
+    of: 'of'
+  }
+
   // Title
   doc.setFontSize(18)
   doc.setFont('helvetica', 'bold')
-  doc.text('Pupil Development Report', pageWidth / 2, yPos, { align: 'center' })
+  doc.text(strings.title, pageWidth / 2, yPos, { align: 'center' })
   yPos += 10
 
   doc.setFontSize(14)
@@ -61,25 +97,25 @@ export function generatePDF(pupil, entries, categories, startDate, endDate) {
   // Report period
   doc.setFontSize(10)
   doc.setFont('helvetica', 'normal')
-  doc.text(`Report Period: ${formatDate(startDate)} - ${formatDate(endDate)}`, margin, yPos)
+  doc.text(`${strings.reportPeriod}: ${formatDate(startDate, locale)} - ${formatDate(endDate, locale)}`, margin, yPos)
   yPos += 5
-  doc.text(`Generated: ${formatDate(new Date().toISOString())}`, margin, yPos)
+  doc.text(`${strings.generated}: ${formatDate(new Date().toISOString(), locale)}`, margin, yPos)
   yPos += 15
 
   // Summary section
   doc.setFontSize(12)
   doc.setFont('helvetica', 'bold')
-  doc.text('Summary', margin, yPos)
+  doc.text(strings.summary, margin, yPos)
   yPos += 8
 
   doc.setFontSize(10)
   doc.setFont('helvetica', 'normal')
-  doc.text(`Total Entries: ${entries.length}`, margin, yPos)
+  doc.text(`${strings.totalEntries}: ${entries.length}`, margin, yPos)
   yPos += 5
 
   if (entries.length > 0) {
     const avgGrade = entries.reduce((sum, e) => sum + e.grade, 0) / entries.length
-    doc.text(`Average Grade: ${avgGrade.toFixed(2)}`, margin, yPos)
+    doc.text(`${strings.averageGrade}: ${avgGrade.toFixed(2)}`, margin, yPos)
     yPos += 15
   } else {
     yPos += 10
@@ -88,7 +124,7 @@ export function generatePDF(pupil, entries, categories, startDate, endDate) {
   // Entries by category
   doc.setFontSize(12)
   doc.setFont('helvetica', 'bold')
-  doc.text('Entries by Category', margin, yPos)
+  doc.text(strings.entriesByCategory, margin, yPos)
   yPos += 10
 
   // Group entries by category
@@ -114,7 +150,7 @@ export function generatePDF(pupil, entries, categories, startDate, endDate) {
 
     doc.setFontSize(11)
     doc.setFont('helvetica', 'bold')
-    doc.text(category.name, margin, yPos)
+    doc.text(getCategoryName(category, locale), margin, yPos)
     yPos += 7
 
     doc.setFontSize(9)
@@ -127,8 +163,8 @@ export function generatePDF(pupil, entries, categories, startDate, endDate) {
         yPos = 20
       }
 
-      const dateText = formatDate(entry.date)
-      const gradeText = `Grade: ${entry.grade}`
+      const dateText = formatDate(entry.date, locale)
+      const gradeText = `${strings.grade}: ${entry.grade}`
 
       doc.setFont('helvetica', 'bold')
       doc.text(`${dateText} - ${gradeText}`, margin + 5, yPos)
@@ -159,7 +195,7 @@ export function generatePDF(pupil, entries, categories, startDate, endDate) {
     doc.setFontSize(8)
     doc.setFont('helvetica', 'normal')
     doc.text(
-      `Page ${i} of ${pageCount}`,
+      `${strings.page} ${i} ${strings.of} ${pageCount}`,
       pageWidth / 2,
       doc.internal.pageSize.getHeight() - 10,
       { align: 'center' }
@@ -178,14 +214,40 @@ export function generatePDF(pupil, entries, categories, startDate, endDate) {
  * @param {Array} categories - Array of category objects
  * @param {string} startDate - Start date for report period
  * @param {string} endDate - End date for report period
+ * @param {string} locale - Language locale ('de' or 'en')
  */
-export async function generateWord(pupil, entries, categories, startDate, endDate) {
+export async function generateWord(pupil, entries, categories, startDate, endDate, locale = 'de') {
+  // Localized strings
+  const strings = locale === 'de' ? {
+    title: 'Entwicklungsbericht',
+    reportPeriod: 'Berichtszeitraum',
+    generated: 'Erstellt am',
+    summary: 'Zusammenfassung',
+    totalEntries: 'Eintraege gesamt',
+    averageGrade: 'Durchschnittsnote',
+    entriesByCategory: 'Eintraege nach Kategorie',
+    date: 'Datum',
+    grade: 'Note',
+    notes: 'Notizen'
+  } : {
+    title: 'Development Report',
+    reportPeriod: 'Report Period',
+    generated: 'Generated',
+    summary: 'Summary',
+    totalEntries: 'Total Entries',
+    averageGrade: 'Average Grade',
+    entriesByCategory: 'Entries by Category',
+    date: 'Date',
+    grade: 'Grade',
+    notes: 'Notes'
+  }
+
   const children = []
 
   // Title
   children.push(
     new Paragraph({
-      text: 'Pupil Development Report',
+      text: strings.title,
       heading: HeadingLevel.HEADING_1,
       alignment: 'center'
     })
@@ -205,8 +267,8 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
   children.push(
     new Paragraph({
       children: [
-        new TextRun({ text: 'Report Period: ', bold: true }),
-        new TextRun({ text: `${formatDate(startDate)} - ${formatDate(endDate)}` })
+        new TextRun({ text: `${strings.reportPeriod}: `, bold: true }),
+        new TextRun({ text: `${formatDate(startDate, locale)} - ${formatDate(endDate, locale)}` })
       ]
     })
   )
@@ -214,8 +276,8 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
   children.push(
     new Paragraph({
       children: [
-        new TextRun({ text: 'Generated: ', bold: true }),
-        new TextRun({ text: formatDate(new Date().toISOString()) })
+        new TextRun({ text: `${strings.generated}: `, bold: true }),
+        new TextRun({ text: formatDate(new Date().toISOString(), locale) })
       ]
     })
   )
@@ -225,7 +287,7 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
   // Summary
   children.push(
     new Paragraph({
-      text: 'Summary',
+      text: strings.summary,
       heading: HeadingLevel.HEADING_2
     })
   )
@@ -233,7 +295,7 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
   children.push(
     new Paragraph({
       children: [
-        new TextRun({ text: 'Total Entries: ', bold: true }),
+        new TextRun({ text: `${strings.totalEntries}: `, bold: true }),
         new TextRun({ text: String(entries.length) })
       ]
     })
@@ -244,7 +306,7 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
     children.push(
       new Paragraph({
         children: [
-          new TextRun({ text: 'Average Grade: ', bold: true }),
+          new TextRun({ text: `${strings.averageGrade}: `, bold: true }),
           new TextRun({ text: avgGrade.toFixed(2) })
         ]
       })
@@ -256,7 +318,7 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
   // Entries by category
   children.push(
     new Paragraph({
-      text: 'Entries by Category',
+      text: strings.entriesByCategory,
       heading: HeadingLevel.HEADING_2
     })
   )
@@ -279,7 +341,7 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
     children.push(new Paragraph({ text: '' }))
     children.push(
       new Paragraph({
-        text: category.name,
+        text: getCategoryName(category, locale),
         heading: HeadingLevel.HEADING_3
       })
     )
@@ -289,15 +351,15 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
       new TableRow({
         children: [
           new TableCell({
-            children: [new Paragraph({ children: [new TextRun({ text: 'Date', bold: true })] })],
+            children: [new Paragraph({ children: [new TextRun({ text: strings.date, bold: true })] })],
             width: { size: 20, type: WidthType.PERCENTAGE }
           }),
           new TableCell({
-            children: [new Paragraph({ children: [new TextRun({ text: 'Grade', bold: true })] })],
+            children: [new Paragraph({ children: [new TextRun({ text: strings.grade, bold: true })] })],
             width: { size: 15, type: WidthType.PERCENTAGE }
           }),
           new TableCell({
-            children: [new Paragraph({ children: [new TextRun({ text: 'Notes', bold: true })] })],
+            children: [new Paragraph({ children: [new TextRun({ text: strings.notes, bold: true })] })],
             width: { size: 65, type: WidthType.PERCENTAGE }
           })
         ]
@@ -309,7 +371,7 @@ export async function generateWord(pupil, entries, categories, startDate, endDat
         new TableRow({
           children: [
             new TableCell({
-              children: [new Paragraph({ text: formatDate(entry.date) })]
+              children: [new Paragraph({ text: formatDate(entry.date, locale) })]
             }),
             new TableCell({
               children: [new Paragraph({ text: String(entry.grade) })]

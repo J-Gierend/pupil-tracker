@@ -14,14 +14,14 @@ const STORAGE_KEYS = {
 
 // Predefined categories (built-in)
 const DEFAULT_CATEGORIES = [
-  { id: 1, name: 'Work Behavior / Arbeitsverhalten', is_custom: false },
-  { id: 2, name: 'Social Behavior / Sozialverhalten', is_custom: false },
-  { id: 3, name: 'Learning Development / Lernentwicklung', is_custom: false },
-  { id: 4, name: 'Special Incidents / Besondere Vorkommnisse', is_custom: false },
-  { id: 5, name: 'Motor Skills / Motorik', is_custom: false },
-  { id: 6, name: 'Creativity / Kreativitaet', is_custom: false },
-  { id: 7, name: 'Language Development / Sprachentwicklung', is_custom: false },
-  { id: 8, name: 'Independence / Selbststaendigkeit', is_custom: false }
+  { id: 1, name_de: 'Arbeitsverhalten', name_en: 'Work Behavior', is_custom: false },
+  { id: 2, name_de: 'Sozialverhalten', name_en: 'Social Behavior', is_custom: false },
+  { id: 3, name_de: 'Lernentwicklung', name_en: 'Learning Development', is_custom: false },
+  { id: 4, name_de: 'Besondere Vorkommnisse', name_en: 'Special Incidents', is_custom: false },
+  { id: 5, name_de: 'Motorik', name_en: 'Motor Skills', is_custom: false },
+  { id: 6, name_de: 'Kreativitaet', name_en: 'Creativity', is_custom: false },
+  { id: 7, name_de: 'Sprachentwicklung', name_en: 'Language Development', is_custom: false },
+  { id: 8, name_de: 'Selbststaendigkeit', name_en: 'Independence', is_custom: false }
 ]
 
 // Generate unique ID
@@ -287,12 +287,13 @@ export function exportEntriesAsCsv() {
     const pupil = pupils.find(p => p.id === entry.pupil_id)
     const category = categories.find(c => c.id === entry.category_id)
     const cls = pupil ? classes.find(c => c.id === pupil.class_id) : null
+    const categoryName = category ? (category.name_en || category.name || '') : ''
     return [
       entry.date,
       pupil?.first_name || '',
       pupil?.last_name || '',
       cls?.name || '',
-      category?.name || '',
+      categoryName,
       entry.grade,
       (entry.notes || '').replace(/"/g, '""')
     ].map(val => `"${val}"`).join(',')
@@ -333,4 +334,146 @@ export function clearAllData() {
   localStorage.removeItem(STORAGE_KEYS.CATEGORIES)
   localStorage.removeItem(STORAGE_KEYS.ENTRIES)
   localStorage.removeItem(STORAGE_KEYS.INITIALIZED)
+}
+
+// Seed test data for development and demonstration
+export function seedTestData() {
+  // Check if data already exists
+  const existingClasses = getClasses()
+  const existingPupils = getPupils()
+  if (existingClasses.length > 0 || existingPupils.length > 0) {
+    return false // Data already exists, don't overwrite
+  }
+
+  // German first names
+  const firstNames = [
+    'Emma', 'Liam', 'Mia', 'Noah', 'Hannah', 'Ben', 'Lea', 'Finn', 'Anna', 'Leon',
+    'Sophie', 'Elias', 'Marie', 'Paul', 'Emilia', 'Felix', 'Lina', 'Jonas', 'Mila', 'Lukas',
+    'Charlotte', 'Maximilian', 'Amelie', 'Henry', 'Ella', 'Tim', 'Clara', 'David', 'Laura', 'Moritz',
+    'Johanna', 'Alexander', 'Sarah', 'Julian', 'Emily', 'Niklas', 'Lena', 'Philipp', 'Nele', 'Jan'
+  ]
+
+  // German last names
+  const lastNames = [
+    'Mueller', 'Schmidt', 'Fischer', 'Weber', 'Meyer', 'Wagner', 'Becker', 'Schulz', 'Hoffmann', 'Koch',
+    'Richter', 'Klein', 'Wolf', 'Schroeder', 'Neumann', 'Schwarz', 'Zimmermann', 'Braun', 'Hartmann', 'Krueger'
+  ]
+
+  // Sample observation texts in German
+  const observationTexts = [
+    'Zeigt gute Mitarbeit im Unterricht',
+    'Hat heute beim Gruppenprojekt sehr gut kooperiert',
+    'Braucht mehr Uebung bei Mathematik',
+    'Sehr kreativ beim Kunstunterricht',
+    'Hat Schwierigkeiten bei der Konzentration',
+    'Loest Aufgaben selbststaendig und zuverlaessig',
+    'Beteiligt sich aktiv an Klassendiskussionen',
+    'Zeigt gute Fortschritte beim Lesen',
+    'Ist hilfsbereit gegenueber Mitschuelern',
+    'Hat die Hausaufgaben vollstaendig und ordentlich erledigt',
+    'Zeigt Interesse an naturwissenschaftlichen Themen',
+    'Konnte heute eine schwierige Aufgabe erfolgreich loesen',
+    'Braucht Unterstuetzung bei schriftlichen Arbeiten',
+    'Hat ein tolles Referat gehalten',
+    'Zeigt verbesserte Feinmotorik beim Schreiben',
+    'Arbeitet gut im Team zusammen',
+    'Hat heute besonders aufmerksam zugehoert',
+    'Zeigt Fortschritte in der Rechtschreibung',
+    'Ist respektvoll im Umgang mit anderen',
+    'Hat kreative Loesungsansaetze gezeigt',
+    'Benoetigt mehr Zeit bei Textaufgaben',
+    'Zeigt gutes Verstaendnis fuer Sachverhalte',
+    'Hat heute sehr fleissig gearbeitet',
+    'Kann Erlerntes gut anwenden',
+    'Zeigt Eigeninitiative beim Lernen'
+  ]
+
+  // Create school years
+  const schoolYears = [
+    { id: 1001, name: '2023/2024', is_active: false },
+    { id: 1002, name: '2024/2025', is_active: true }
+  ]
+  setStorage(STORAGE_KEYS.SCHOOL_YEARS, schoolYears)
+
+  // Create classes (all in 2024/2025)
+  const classes = [
+    { id: 2001, name: 'Klasse 1a', school_year_id: 1002 },
+    { id: 2002, name: 'Klasse 2b', school_year_id: 1002 },
+    { id: 2003, name: 'Klasse 3c', school_year_id: 1002 },
+    { id: 2004, name: 'Klasse 4d', school_year_id: 1002 }
+  ]
+  setStorage(STORAGE_KEYS.CLASSES, classes)
+
+  // Create pupils (10 per class = 40 total)
+  const pupils = []
+  let pupilId = 3001
+  let nameIndex = 0
+
+  classes.forEach(cls => {
+    for (let i = 0; i < 10; i++) {
+      const firstName = firstNames[nameIndex % firstNames.length]
+      const lastName = lastNames[nameIndex % lastNames.length]
+      pupils.push({
+        id: pupilId++,
+        first_name: firstName,
+        last_name: lastName,
+        class_id: cls.id
+      })
+      nameIndex++
+    }
+  })
+  setStorage(STORAGE_KEYS.PUPILS, pupils)
+
+  // Create entries (3-5 per pupil = 120-200 entries)
+  const entries = []
+  let entryId = 4001
+  const categoryIds = [1, 2, 3, 4, 5, 6, 7, 8] // All default category IDs
+
+  // Date range: September 2024 - January 2025
+  const startDate = new Date('2024-09-02')
+  const endDate = new Date('2025-01-15')
+  const dateRange = endDate.getTime() - startDate.getTime()
+
+  pupils.forEach(pupil => {
+    const numEntries = 3 + Math.floor(Math.random() * 3) // 3 to 5 entries
+
+    for (let i = 0; i < numEntries; i++) {
+      // Random date in range
+      const randomTime = startDate.getTime() + Math.random() * dateRange
+      const entryDate = new Date(randomTime)
+      const dateStr = entryDate.toISOString().split('T')[0]
+
+      // Random category
+      const categoryId = categoryIds[Math.floor(Math.random() * categoryIds.length)]
+
+      // Random grade (1-6, weighted toward better grades)
+      const gradeRand = Math.random()
+      let grade
+      if (gradeRand < 0.3) grade = 1
+      else if (gradeRand < 0.5) grade = 2
+      else if (gradeRand < 0.7) grade = 3
+      else if (gradeRand < 0.85) grade = 4
+      else if (gradeRand < 0.95) grade = 5
+      else grade = 6
+
+      // Random notes (some entries have notes, some don't)
+      const hasNotes = Math.random() > 0.2 // 80% have notes
+      const notes = hasNotes
+        ? observationTexts[Math.floor(Math.random() * observationTexts.length)]
+        : ''
+
+      entries.push({
+        id: entryId++,
+        pupil_id: pupil.id,
+        category_id: categoryId,
+        date: dateStr,
+        grade: grade,
+        notes: notes,
+        created_at: new Date().toISOString()
+      })
+    }
+  })
+  setStorage(STORAGE_KEYS.ENTRIES, entries)
+
+  return true
 }
